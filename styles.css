@@ -342,3 +342,26 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
 .research-aside{justify-content:flex-start;min-height:0}
 .research-aside .research-illustration{margin-top:28px}
 @media(max-width:800px){.research-aside .research-illustration{margin-top:10px}}
+
+/* Consistency pass (2026-11-10): one size per role across all pages. */
+.section-heading,.cv-feature h2,.editorial-feature h2,.contact-section h2,.research-body h2,.profile-outro h2,.notes-heading h2{font-size:clamp(44px,5vw,66px);line-height:1.07;letter-spacing:-.044em}
+@media(max-width:480px){.section-heading,.cv-feature h2,.editorial-feature h2,.contact-section h2,.research-body h2,.profile-outro h2,.notes-heading h2{font-size:46px}}
+.page-head h1,.page-head-notes h1{font-size:clamp(76px,8.7vw,130px);line-height:.9}
+@media(max-width:800px){.page-head h1,.page-head-notes h1{font-size:clamp(70px,12vw,105px)}}
+@media(max-width:480px){.page-head h1,.page-head-notes h1{font-size:72px}}
+.section-intro,.cv-feature p,.editorial-feature p:not(.eyebrow),.contact-details p,.research-body>p,.notes-heading>p,.writing-copy p{font-size:15px;line-height:1.8}
+.section-intro,.cv-feature p,.editorial-feature p:not(.eyebrow),.notes-heading>p{max-width:620px}
+.section-heading,.cv-feature h2,.editorial-feature h2,.research-body h2,.profile-outro h2{margin-bottom:20px}
+.notes-heading{row-gap:20px}
+.section-index,.profile-label{letter-spacing:.12em}
+.eyebrow,.eyebrow-small{letter-spacing:.15em}
+.card-kicker,.papers-label,.note-type{font-size:10px;letter-spacing:.12em}
+.cv-feature-link{font-size:12px;font-weight:700}
+/* Interior pages use the homepage section gap; every page ends with the same space before the footer. */
+.page-head,.page-head-notes{padding-top:var(--section-gap);padding-bottom:var(--section-gap)}
+.research-row{padding:var(--section-gap) 0}
+.research-list{padding-bottom:0}
+.notes-content,.talks-section{padding-top:var(--section-gap);padding-bottom:var(--section-gap)}
+.notes-contact{padding-top:var(--section-gap)}
+.profile-outro{padding-top:var(--section-gap);padding-bottom:125px}
+@media(max-width:800px){.profile-outro{padding-bottom:85px}}
