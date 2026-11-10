@@ -373,3 +373,17 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
 .card-kicker,.papers-label,.note-type{font-size:11px}
 .feature-card p:not(.card-kicker){font-size:14.5px;line-height:1.7}
 .talk-information p{font-size:13px}
+
+/* Second step-up: secondary text in proportion to the 17px paragraphs. Uppercase labels stay 11px. */
+.affiliation p{font-size:14px}
+.affiliation-next .affiliation-rule{height:18px}
+.site-nav a{font-size:14px}
+.profile-links>a{font-size:14px}
+.button,.text-link,.underline-link,.subtle-link,.cv-feature-link,.page-head .underline-link{font-size:13px}
+.card-bottom{font-size:12px}
+.credit-line{font-size:12.5px}
+.contact-details>span{font-size:13px}
+.footer-right{font-size:13px}
+.footer>div:first-child>span:last-child,.footer-right>span{font-size:12px}
+.portrait-bottom{font-size:10px}
+@media(max-width:480px){.portrait-bottom{font-size:9px}}
