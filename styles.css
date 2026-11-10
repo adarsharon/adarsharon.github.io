@@ -365,3 +365,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
 .notes-contact{padding-top:var(--section-gap)}
 .profile-outro{padding-top:var(--section-gap);padding-bottom:125px}
 @media(max-width:800px){.profile-outro{padding-bottom:85px}}
+
+/* Text size step-up (~13%) for reading text, keeping the ratios between levels. */
+.section-intro,.cv-feature p,.editorial-feature p:not(.eyebrow),.contact-details p,.research-body>p,.notes-heading>p,.writing-copy p{font-size:17px;line-height:1.75}
+.paper-list strong{font-size:15px;line-height:1.4}
+.paper-list small{font-size:12.5px;margin-top:6px}
+.card-kicker,.papers-label,.note-type{font-size:11px}
+.feature-card p:not(.card-kicker){font-size:14.5px;line-height:1.7}
+.talk-information p{font-size:13px}
