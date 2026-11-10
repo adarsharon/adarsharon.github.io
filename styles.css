@@ -302,14 +302,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
   .hero-cv-link{font-weight:700}
 }
 
-/* Compact CV row immediately below academic profile links, before research. */
+
+/* Restore the original editorial CV section, immediately after academic links. */
 .profile-links{margin-bottom:0}
-.cv-quickline{margin-bottom:98px}
-.cv-quickline-inner{border-bottom:1px solid var(--line-dark);display:grid;grid-template-columns:1fr 1.3fr auto;align-items:center;gap:24px;padding:24px 0}
-.cv-quickline-title{font-family:var(--serif);font-size:clamp(23px,2.6vw,31px);font-weight:450;letter-spacing:-.025em;color:var(--ink)}
-.cv-quickline-description{font-size:12px;color:var(--muted)}
-.cv-quickline-action{display:inline-flex;align-items:center;gap:24px;white-space:nowrap;font-size:12px;font-weight:700;border-bottom:1px solid var(--orange);padding:7px 0}
-.cv-quickline-action span{font-size:18px;font-weight:400;color:var(--orange)}
-.cv-quickline-action:hover{color:var(--orange)}
-@media(max-width:800px){.cv-quickline{margin-bottom:70px}.cv-quickline-inner{grid-template-columns:1fr auto;gap:7px 18px;padding:20px 0}.cv-quickline-description{grid-column:1;grid-row:2}.cv-quickline-action{grid-column:2;grid-row:1 / span 2}}
-@media(max-width:480px){.cv-quickline{margin-bottom:60px}.cv-quickline-inner{gap:6px 12px}.cv-quickline-description{font-size:11px;line-height:1.4;max-width:215px}.cv-quickline-title{font-size:25px}.cv-quickline-action{gap:8px}}
+.cv-feature+.intro-section{padding-top:95px}
+@media(max-width:800px){.cv-feature+.intro-section{padding-top:75px}}
+@media(max-width:480px){.cv-feature+.intro-section{padding-top:62px}}
