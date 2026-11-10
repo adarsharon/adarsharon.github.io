@@ -272,3 +272,17 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
 .cv-holder p{font:400 clamp(21px,2.6vw,30px)/1.4 var(--serif);color:var(--muted);max-width:470px;margin:0 0 26px}
 @media(max-width:800px){.portrait-frame{height:420px;min-height:0;box-shadow:10px 10px 0 #efede7}.portrait-monogram{font-size:190px}.research-illustration{margin-top:10px;width:210px}.research-aside{min-height:0}.cv-holder{grid-template-columns:1fr;gap:25px;padding-top:65px;padding-bottom:95px}}
 @media(max-width:480px){.portrait-frame{height:335px}.portrait-monogram{font-size:155px}.portrait-bottom{font-size:8px}.research-illustration{width:180px}.cv-holder h1{font-size:83px}}
+
+/* CV section and restrained accent refinement */
+.hero h1::after{content:"";display:block;width:68px;height:3px;margin-top:22px;background:var(--orange)}
+.cv-feature{display:grid;grid-template-columns:28% minmax(0,1fr);gap:32px;padding-top:68px;padding-bottom:73px;border-bottom:1px solid var(--line-dark)}
+.cv-feature-label{padding-top:15px}
+.cv-feature-content{display:flex;justify-content:space-between;gap:48px;align-items:center}
+.cv-feature h2{font:450 clamp(42px,4.9vw,64px)/1.05 var(--serif);letter-spacing:-.044em;margin:0 0 14px}
+.cv-feature h2 em{font-style:italic;color:var(--orange);font-weight:400}
+.cv-feature p{font-size:14px;max-width:450px;color:var(--muted);line-height:1.75;margin:0}
+.cv-feature-link{align-self:center;display:inline-flex;align-items:center;justify-content:space-between;white-space:nowrap;min-width:130px;gap:30px;border-bottom:1px solid var(--ink);padding:12px 0;font-size:13px;font-weight:650;transition:color .2s,border-color .2s}
+.cv-feature-link span{color:var(--orange);font-size:21px;font-weight:400}
+.cv-feature-link:hover{color:var(--orange);border-color:var(--orange)}
+@media(max-width:800px){.cv-feature{grid-template-columns:1fr;gap:13px;padding-top:57px;padding-bottom:65px}.cv-feature-label{padding-top:0}.cv-feature-content{gap:25px}}
+@media(max-width:480px){.cv-feature-content{flex-direction:column;align-items:flex-start;gap:19px}.cv-feature h2{font-size:51px}.cv-feature-link{min-width:140px}}
