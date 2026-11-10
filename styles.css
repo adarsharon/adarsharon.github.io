@@ -247,3 +247,28 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
  .footer-right{gap:15px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* 2026 refinement: restrained academic typography and portrait placeholder */
+.hero h1 span{display:block;font-weight:450;font-style:normal;color:var(--ink);letter-spacing:-.065em}
+.name-period{color:var(--orange)!important}
+.hero h1 span.name-period{display:inline;font-weight:inherit}
+.portrait-frame{min-height:546px;background:#e9e5db;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;border:1px solid #dedbd3;box-shadow:15px 15px 0 #efede7}
+.portrait-placeholder{flex:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#e6e2d7,#f3f0e9 65%,#e3e0d8)}
+.portrait-placeholder:before{content:"";position:absolute;inset:21px;border:1px solid rgba(66,83,79,.17)}
+.portrait-monogram{font:400 clamp(135px,19vw,260px)/1 var(--serif);color:#aab0a8;letter-spacing:-.08em;opacity:.38;transform:translateX(-7px)}
+.portrait-hairline{position:absolute;width:75%;height:1px;left:12.5%;bottom:15%;background:#a2afa6;opacity:.5}
+.portrait-bottom{padding:14px 22px;display:flex;justify-content:space-between;gap:15px;background:#e5e2d9;color:#687671;font-size:9px;letter-spacing:.12em;font-weight:600}
+.research-illustration{width:220px;max-width:100%;aspect-ratio:3/2;background:#edeee8;border:1px solid #d9dfd7;margin-top:42px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.research-illustration svg{width:100%;height:100%;display:block}
+.research-aside{min-height:260px}
+.research-body h2{letter-spacing:-.034em}
+.other-talks-heading{margin-top:75px}
+.talk-text .talk-date{font:450 26px/1 var(--serif);color:#a06b50}
+.talk-text .talk-information h3{font-size:clamp(22px,2.35vw,31px)}
+.talks-section .talk-item+.talk-item{border-top:none}
+.profile-outro a,.profile-links a{transition:color .2s}
+.cv-holder{min-height:53vh;padding-top:110px;padding-bottom:130px;border-bottom:1px solid var(--line-dark);display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.cv-holder h1{font:450 clamp(75px,11vw,146px)/.98 var(--serif);letter-spacing:-.06em;margin:14px 0 0}
+.cv-holder p{font:400 clamp(21px,2.6vw,30px)/1.4 var(--serif);color:var(--muted);max-width:470px;margin:0 0 26px}
+@media(max-width:800px){.portrait-frame{height:420px;min-height:0;box-shadow:10px 10px 0 #efede7}.portrait-monogram{font-size:190px}.research-illustration{margin-top:10px;width:210px}.research-aside{min-height:0}.cv-holder{grid-template-columns:1fr;gap:25px;padding-top:65px;padding-bottom:95px}}
+@media(max-width:480px){.portrait-frame{height:335px}.portrait-monogram{font-size:155px}.portrait-bottom{font-size:8px}.research-illustration{width:180px}.cv-holder h1{font-size:83px}}
