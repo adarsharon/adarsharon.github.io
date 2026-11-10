@@ -335,3 +335,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
 .cv-feature+.intro-section{padding-top:var(--section-gap)}
 .intro-section+.feature-grid{padding-bottom:var(--section-gap)}
 .editorial-feature+.contact-section{padding-top:var(--section-gap)}
+
+/* Research graphics sit just under the section label, not at the bottom of the row. */
+.research-aside{justify-content:flex-start;min-height:0}
+.research-aside .research-illustration{margin-top:28px}
+@media(max-width:800px){.research-aside .research-illustration{margin-top:10px}}
