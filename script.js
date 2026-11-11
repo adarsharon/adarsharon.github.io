@@ -13,7 +13,7 @@
     document.addEventListener("keydown", event => { if (event.key === "Escape") closeMenu(); });
     document.addEventListener("click", event => { if (!menu.contains(event.target) && !toggle.contains(event.target)) closeMenu(); });
   }
-  // Scroll reveal. Preview only: active when <html> has class "motion" (set by ?motion=1 in the page head).
+  // Scroll reveal: active when <html> has class "motion" (set in the page head unless the visitor prefers reduced motion).
   const root = document.documentElement;
   if (root.classList.contains("motion") && "IntersectionObserver" in window) {
     const selectors = [

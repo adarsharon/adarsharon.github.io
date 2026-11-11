@@ -388,7 +388,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-off
 .portrait-bottom{font-size:10px}
 @media(max-width:480px){.portrait-bottom{font-size:9px}}
 
-/* Scroll reveal (preview; only under html.motion, set by ?motion=1). */
+/* Scroll reveal: only under html.motion (set in the page head unless reduced motion is preferred). */
 html.motion .reveal{opacity:0;transform:translate3d(0,var(--reveal-shift,16px),0);transition:opacity .6s ease var(--reveal-delay,0s),transform .75s cubic-bezier(.2,.65,.25,1) var(--reveal-delay,0s)}
 html.motion .reveal.is-visible{opacity:1;transform:none}
 @media(max-width:800px){html.motion{--reveal-shift:12px}}
