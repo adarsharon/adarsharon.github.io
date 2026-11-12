@@ -7,99 +7,112 @@ permalink: /surf/
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Surf Check</title>
+<title>Surf check</title>
+<link rel="icon" href="/projects/surf/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/projects/surf/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/projects/surf/apple-touch-icon.png">
+<link rel="manifest" href="/projects/surf/manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Surf check">
+<meta name="theme-color" content="#f8f7f3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,450;6..72,500;6..72,600&display=swap" rel="stylesheet">
 <style>
+  /* colours and fonts of adarsharon.com (styles.css) */
   :root {
-    --deep: #0b3a4a; --sea: #14697f; --foam: #eef6f4; --sand: #f4ead8;
-    --go: #1e8a4c; --maybe: #c07f00; --nogo: #b3362b; --ink: #12313b;
+    --paper: #f8f7f3;
+    --white: #fffefa;
+    --ink: #253438;
+    --ink2: #394c50;
+    --muted: #646f6d;
+    --line: #dbdfda;
+    --line-dark: #bac7c0;
+    --orange: #ad6a49;
+    --orange-text: #a16244;
+    --green: #46615c;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
   * { box-sizing: border-box; }
-  body {
-    margin: 0; font-family: Georgia, 'Times New Roman', serif; color: var(--ink);
-    background: linear-gradient(180deg, var(--foam) 0%, var(--sand) 100%);
-    min-height: 100vh;
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+  ::selection { background: #d8c6b8; color: var(--ink); }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--green); font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: .04em; }
+  .eyebrow-line { display: inline-block; height: 1px; width: 29px; background: var(--orange); }
+  .eyebrow:hover { color: var(--ink); }
+  h1 { font: 450 clamp(36px, 4vw, 48px)/1.05 var(--serif); letter-spacing: -.04em; margin: 8px 0 4px; }
+  h1 .period { color: var(--orange); }
+  .page { max-width: 760px; margin: 0 auto; padding: 18px 22px 70px; }
+  .sub { color: var(--muted); font-size: 14px; margin: 0 0 18px; }
+  .sub a { color: var(--ink2); font-weight: 600; transition: color .2s; }
+  .sub a span { color: var(--orange); }
+  .sub a:hover { color: var(--orange); }
+  form.picker { display: flex; gap: 12px 14px; flex-wrap: wrap; align-items: flex-end; background: var(--white);
+                border: 1px solid var(--line); padding: 14px 16px; margin-bottom: 22px; }
+  form.picker label { display: block; color: var(--green); font-size: 11px; font-weight: 700; text-transform: uppercase;
+                      letter-spacing: .04em; margin-bottom: 5px; }
+  form.picker select { font: inherit; font-size: 15px; padding: 8px 10px; border: 1px solid var(--line-dark); border-radius: 2px;
+                       background: var(--paper); color: var(--ink); }
+  form.picker select:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(173,106,73,.2); }
+  form.picker button { font: inherit; font-weight: 600; font-size: 15px; padding: 9px 18px; border: 0; background: var(--ink);
+                       color: #f9f8f4; cursor: pointer; transition: transform .18s, background .18s; }
+  form.picker button:hover { background: #3d595a; transform: translateY(-1px); }
+  .beach { background: var(--white); border: 1px solid var(--line); margin-bottom: 14px; }
+  .beach-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 16px 8px; }
+  .beach-head h2 { font: 450 24px/1.15 var(--serif); letter-spacing: -.02em; margin: 0; }
+  .badge { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 5px 12px;
+           border-radius: 999px; color: var(--white); white-space: nowrap; }
+  .badge.GO { background: var(--green); }
+  .badge.MAYBE { background: var(--orange-text); }
+  .badge.NOGO { background: var(--ink); }
+  .badge.NODATA { background: transparent; color: var(--muted); box-shadow: inset 0 0 0 1px var(--line-dark); }
+  .subverdicts { display: flex; gap: 16px; padding: 0 16px 8px; font-size: 13px; color: var(--ink2); }
+  .subverdicts span.yes::before { content: "\2713  "; color: var(--green); font-weight: 700; }
+  .subverdicts span.no::before { content: "\2717  "; color: var(--orange-text); font-weight: 700; }
+  ul.reasons { margin: 0; padding: 10px 16px 12px 34px; border-top: 1px solid var(--line); font-size: 14.5px; line-height: 1.6; color: var(--ink2); }
+  ul.reasons li { margin: 2px 0; }
+  .numbers { color: var(--muted); font-size: 12.5px; padding: 0 16px 12px; }
+  .loading { color: var(--muted); text-align: center; }
+  footer { color: var(--muted); font-size: 12.5px; text-align: center; margin-top: 26px; }
+  @media (max-width: 700px) {
+    .page { padding: 14px 14px 56px; }
+    form.picker { padding: 12px; }
+    form.picker > div { flex: 1 1 140px; }
+    form.picker select { width: 100%; }
+    form.picker button { width: 100%; }
+    .beach-head h2 { font-size: 21px; }
   }
-  header {
-    background: var(--deep); color: #fff; padding: 1.1rem 1.2rem;
-    border-bottom: 6px solid var(--sea);
-  }
-  header h1 { margin: 0; font-size: 1.5rem; font-weight: normal; letter-spacing: .06em; }
-  header .sub { font-size: .85rem; opacity: .75; margin-top: .2rem;
-                font-family: Helvetica, Arial, sans-serif; }
-  main { max-width: 680px; margin: 0 auto; padding: 1.2rem; }
-  form.picker {
-    display: flex; gap: .6rem; flex-wrap: wrap; align-items: flex-end;
-    background: #fff; border: 1px solid #d8d2c4; border-radius: 10px;
-    padding: 1rem; margin-bottom: 1.4rem;
-  }
-  form.picker label { font-family: Helvetica, Arial, sans-serif; font-size: .78rem;
-                      text-transform: uppercase; letter-spacing: .05em; display: block;
-                      margin-bottom: .25rem; color: var(--sea); }
-  form.picker select {
-    font-size: 1rem; padding: .45rem .5rem; border: 1px solid #c9c2b2;
-    border-radius: 6px; background: #fff; font-family: inherit;
-  }
-  form.picker button {
-    font-size: 1rem; padding: .5rem 1.2rem; border: none; border-radius: 6px;
-    background: var(--sea); color: #fff; cursor: pointer; font-family: inherit;
-  }
-  form.picker button:hover, form.picker button:focus-visible { background: var(--deep); }
-  .beach {
-    background: #fff; border: 1px solid #d8d2c4; border-radius: 10px;
-    margin-bottom: 1.2rem; overflow: hidden;
-  }
-  .beach-head { display: flex; justify-content: space-between; align-items: center;
-                padding: .9rem 1rem; gap: .8rem; flex-wrap: wrap; }
-  .beach-head h2 { margin: 0; font-size: 1.15rem; font-weight: normal; }
-  .badge {
-    font-family: Helvetica, Arial, sans-serif; font-weight: bold;
-    padding: .35rem .9rem; border-radius: 999px; color: #fff; font-size: .95rem;
-    letter-spacing: .05em; white-space: nowrap;
-  }
-  .badge.GO { background: var(--go); }
-  .badge.MAYBE { background: var(--maybe); }
-  .badge.NOGO, .badge.NODATA { background: var(--nogo); }
-  .subverdicts { display: flex; gap: 1rem; padding: 0 1rem .6rem;
-                 font-family: Helvetica, Arial, sans-serif; font-size: .82rem; }
-  .subverdicts span.yes::before { content: "✓ "; color: var(--go); font-weight: bold; }
-  .subverdicts span.no::before  { content: "✗ "; color: var(--nogo); font-weight: bold; }
-  ul.reasons { margin: 0; padding: .8rem 1rem 1rem 1.6rem; border-top: 1px dashed #d8d2c4;
-               font-size: .93rem; line-height: 1.55; }
-  .numbers { font-family: Helvetica, Arial, sans-serif; font-size: .78rem; color: #5a6b70;
-             padding: 0 1rem .8rem; }
-  footer { text-align: center; font-size: .75rem; color: #7a8a8e; padding: 1rem;
-           font-family: Helvetica, Arial, sans-serif; }
-  a { color: var(--sea); }
-  .loading { font-family: Helvetica, Arial, sans-serif; color: #5a6b70; text-align: center; }
 </style>
 </head>
 <body>
+<main class="page">
 <header>
-  <h1>Surf Check</h1>
-  <div class="sub">Green-wave go/no-go &middot; small unbroken faces for a progressing beginner &middot; edit beaches.json to change spots</div>
+  <a class="eyebrow" href="/"><span class="eyebrow-line"></span>adarsharon.com</a>
+  <h1>Surf check<span class="period">.</span></h1>
+  <p class="sub">Green-wave go/no-go &middot; small unbroken faces for a progressing beginner &middot; <a href="https://github.com/adarsharon/adarsharon.github.io/edit/main/projects/surf/beaches.json" target="_blank" rel="noopener">edit beaches.json to change spots <span>&#8599;</span></a></p>
 </header>
-<main>
-  <form class="picker" id="picker">
-    <div>
-      <label for="beach">Beach</label>
-      <select name="beach" id="beach"></select>
-    </div>
-    <div>
-      <label for="date">Day</label>
-      <select name="date" id="date"></select>
-    </div>
-    <div>
-      <label for="hour">Around</label>
-      <select name="hour" id="hour"></select>
-    </div>
-    <button type="submit">Check the surf</button>
-  </form>
-  <div id="results"></div>
-</main>
+<form class="picker" id="picker">
+  <div>
+    <label for="beach">Beach</label>
+    <select name="beach" id="beach"></select>
+  </div>
+  <div>
+    <label for="date">Day</label>
+    <select name="date" id="date"></select>
+  </div>
+  <div>
+    <label for="hour">Around</label>
+    <select name="hour" id="hour"></select>
+  </div>
+  <button type="submit">Check the surf</button>
+</form>
+<div id="results"></div>
 <footer>
   Surfline ratings are for experienced surfers &mdash; this page scores the raw numbers
   for a beginner instead. Always check posted beach-hazard signs.
 </footer>
+</main>
 <script src="/projects/surf/surf_check.js?v=1"></script>
 </body>
 </html>

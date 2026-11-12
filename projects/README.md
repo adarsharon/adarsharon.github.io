@@ -1,6 +1,6 @@
 # Personal tools
 
-Three small pages that run entirely in the browser, one per folder. The `permalink` line at the top of each HTML file sets its address.
+Three small pages that run entirely in the browser, one per folder. [adarsharon.com/pages](https://adarsharon.com/pages) lists every address on the site. The `permalink` line at the top of each HTML file sets its address.
 
 | Address | Folder | What it shows |
 |---|---|---|
