@@ -62,12 +62,19 @@ permalink: /arxiv/
   .paper-id { color: var(--green); font-weight: 600; font-size: 13px; }
   .date { font-variant-numeric: tabular-nums; }
   .new-label { color: var(--orange-text); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
-  .title { display: block; color: var(--ink); font-weight: 600; font-size: 16px; line-height: 1.4; margin: 4px 0 5px; }
+  .title { display: block; color: var(--orange-text); font-weight: 600; font-size: 16px; line-height: 1.4; margin: 4px 0 5px; }
   .title:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  /* already opened: titles and arXiv numbers turn orange */
-  .title:visited, .paper-id:visited { color: var(--orange-text); }
+  /* not yet opened: orange titles; already opened: ink titles and grey arXiv numbers */
+  .title:visited { color: var(--ink); }
+  .paper-id:visited { color: var(--muted); }
   .authors { color: var(--muted); font-size: 13.5px; line-height: 1.5; }
   .authors strong { color: var(--ink); font-weight: 600; }
+  .cite { display: flex; align-items: baseline; gap: 16px; padding: 9px 12px; }
+  .cite .date { flex: none; font-size: 12.5px; color: var(--muted); }
+  .cite-body { min-width: 0; }
+  .cite .new-label { margin-right: 10px; }
+  .cite .title { display: inline; font-size: 15px; margin: 0 10px 0 0; }
+  .cite .authors { display: inline; font-size: 13.5px; }
   .empty { color: var(--muted); font-style: italic; padding: 16px 12px; margin: 0; }
   @media (max-width: 700px) {
     .page { padding: 24px 18px 80px; }
@@ -86,6 +93,6 @@ permalink: /arxiv/
 </header>
 <div id="results"></div>
 </main>
-<script src="/projects/arxiv/arxiv_tracker.js?v=3"></script>
+<script src="/projects/arxiv/arxiv_tracker.js?v=4"></script>
 </body>
 </html>

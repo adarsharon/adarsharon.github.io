@@ -271,10 +271,11 @@ function formatCitationHtml(c, isNew) {
   const dateStr = c.date ? c.date.slice(0, 10).replace(/-/g, ".") : "Unknown date";
   const link = c.record_id ? "https://inspirehep.net/literature/" + c.record_id : "https://inspirehep.net/literature";
   const lastNames = c.authors.map((a) => (a === "et al." ? "et al." : a.split(",")[0].trim()));
-  return '<li class="item' + (isNew ? " new" : "") + '">' +
-    '<div class="item-top"><span class="date">' + escapeHtml(dateStr) + '</span>' + (isNew ? NEW_LABEL : "") + '</div>' +
+  // one line: date, title, authors (wraps only when the title is too long)
+  return '<li class="item cite' + (isNew ? " new" : "") + '">' +
+    '<span class="date">' + escapeHtml(dateStr) + '</span><span class="cite-body">' + (isNew ? NEW_LABEL : "") +
     '<a class="title" ' + ext(link) + '>' + escapeHtml(c.title) + '</a>' +
-    (lastNames.length ? '<div class="authors">' + escapeHtml(lastNames.join(", ")) + '</div>' : "") + '</li>';
+    (lastNames.length ? '<span class="authors">' + escapeHtml(lastNames.join(", ")) + '</span>' : "") + '</span></li>';
 }
 
 function sectionHead(title, total, nNew, links) {
