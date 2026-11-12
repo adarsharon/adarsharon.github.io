@@ -7,224 +7,85 @@ permalink: /arxiv/
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>New Papers</title>
+<title>New papers</title>
+<link rel="icon" href="/projects/arxiv/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/projects/arxiv/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/projects/arxiv/apple-touch-icon.png">
+<link rel="manifest" href="/projects/arxiv/manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="New papers">
+<meta name="theme-color" content="#f8f7f3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,450;6..72,500;6..72,600&display=swap" rel="stylesheet">
 <style>
-    :root {
-        /* colours of adarsharon.com (styles.css) */
-        --background: #f8f7f3;   /* --paper */
-        --ink: #253438;          /* --ink: text */
-        --muted: #646f6d;        /* --muted: dates, labels */
-        --line: #dbdfda;         /* --line */
-        --accent: #46615c;       /* --green: links */
-        --accent-dark: #253438;  /* --ink: page and section titles */
-        --hover: #ad6a49;        /* --orange: hover, as on the site */
-        --visited: #646f6d;      /* papers already opened fade to grey */
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        background: var(--background);
-        color: var(--ink);
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 17px;
-        line-height: 1.35;
-    }
-
-    .page {
-        max-width: 1120px;
-        margin: 0 auto;
-        padding: 24px 28px 42px;
-    }
-
-    .header {
-        padding-bottom: 12px;
-        margin-bottom: 18px;
-        border-bottom: 2px solid var(--line);
-        text-align: center;
-    }
-
-    h1 {
-        margin: 0;
-        color: var(--accent-dark);
-        font-size: 38px;
-        line-height: 1.1;
-        letter-spacing: 0;
-    }
-
-    .site-link {
-        margin: 6px 0 0;
-        font-size: 15px;
-    }
-
-    .site-link a,
-    .site-link a:visited {
-        color: var(--accent);
-    }
-
-    .site-link a:hover {
-        color: var(--hover);
-    }
-
-    .status {
-        margin: 9px 0 0;
-        color: var(--muted);
-        font-size: 14px;
-        font-style: italic;
-    }
-
-    .section {
-        margin-top: 20px;
-    }
-
-    .section-title {
-        display: flex;
-        align-items: baseline;
-        gap: 10px;
-        margin: 0 0 8px;
-        padding-bottom: 6px;
-        border-bottom: 1px solid var(--line);
-        color: var(--accent-dark);
-        font-size: 22px;
-        line-height: 1.2;
-    }
-
-    .section-title a {
-        font-size: 15px;
-        font-weight: normal;
-    }
-
-    a {
-        color: var(--accent);
-        text-decoration-thickness: 1px;
-        text-underline-offset: 2px;
-    }
-
-    a:hover {
-        color: var(--hover);
-    }
-
-    ::selection {
-        background: #d8c6b8;
-        color: var(--ink);
-    }
-
-    a:visited {
-        color: var(--visited);
-    }
-
-    .citation-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        font-size: 16px;
-        line-height: 1.25;
-    }
-
-    .citation {
-        margin: 2px 0;
-    }
-
-    .citation-authors,
-    .date {
-        color: var(--muted);
-    }
-
-    .date {
-        font-size: 15px;
-        font-variant-numeric: tabular-nums;
-    }
-
-    .paper {
-        padding: 10px 0 11px;
-        border-bottom: 1px solid var(--line);
-    }
-
-    .paper-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-
-    .paper-id {
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .paper-title {
-        margin: 3px 0 4px;
-        font-size: 19px;
-        line-height: 1.2;
-    }
-
-    .paper-title a {
-        color: var(--ink);
-        text-decoration: none;
-    }
-
-    .paper-title a:visited {
-        color: var(--visited);
-    }
-
-    .paper-title a:hover {
-        color: var(--hover);
-        text-decoration: underline;
-    }
-
-    .meta {
-        margin: 0;
-    }
-
-    .label {
-        display: inline-block;
-        margin-right: 7px;
-        color: var(--muted);
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    .empty {
-        color: var(--muted);
-        font-style: italic;
-    }
-
-    @media (max-width: 700px) {
-        body {
-            font-size: 16px;
-        }
-
-        .page {
-            padding: 20px 16px 34px;
-        }
-
-        h1 {
-            font-size: 30px;
-        }
-
-        .section-title {
-            font-size: 20px;
-        }
-
-        .paper-title {
-            font-size: 18px;
-        }
-    }
+  /* colours and fonts of adarsharon.com (styles.css) */
+  :root {
+    --paper: #f8f7f3;
+    --ink: #253438;
+    --ink2: #394c50;
+    --muted: #646f6d;
+    --line: #dbdfda;
+    --line-dark: #bac7c0;
+    --orange: #ad6a49;
+    --orange-text: #a16244;
+    --green: #46615c;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+  ::selection { background: #d8c6b8; color: var(--ink); }
+  .page { max-width: 1040px; margin: 0 auto; padding: 34px 28px 110px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--green); font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: .04em; }
+  .eyebrow-line { display: inline-block; height: 1px; width: 29px; background: var(--orange); }
+  .eyebrow:hover { color: var(--ink); }
+  h1 { font: 450 clamp(44px, 5vw, 66px)/1.05 var(--serif); letter-spacing: -.045em; margin: 20px 0 12px; }
+  h1 .period { color: var(--orange); }
+  .status { color: var(--muted); font-size: 14px; margin: 0; }
+  .new-count { color: var(--orange-text); font-weight: 700; }
+  .section { margin-top: 56px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 20px; flex-wrap: wrap; padding-bottom: 12px; border-bottom: 1px solid var(--line-dark); }
+  .section-head h2 { font: 450 32px/1.1 var(--serif); letter-spacing: -.025em; margin: 0; }
+  .count { font: 500 14px var(--sans); letter-spacing: 0; color: var(--muted); margin-left: 12px; }
+  .count em { font-style: normal; font-weight: 700; color: var(--orange-text); }
+  .head-links { display: flex; gap: 22px; font-size: 14px; font-weight: 600; color: var(--ink2); }
+  .head-links a { transition: color .2s; }
+  .head-links a span { color: var(--orange); }
+  .head-links a:hover { color: var(--orange); }
+  .list { list-style: none; margin: 0; padding: 0; }
+  .item { border-bottom: 1px solid var(--line); padding: 15px 12px 16px; transition: background .2s; }
+  .item:hover { background: #eeeee8; }
+  .item.new { box-shadow: inset 3px 0 0 var(--orange); }
+  .item-top { display: flex; align-items: baseline; gap: 14px; font-size: 12.5px; color: var(--muted); }
+  .paper-id { color: var(--green); font-weight: 600; font-size: 13px; }
+  .date { font-variant-numeric: tabular-nums; }
+  .new-label { color: var(--orange-text); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+  .title { display: block; color: var(--ink); font-weight: 600; font-size: 16px; line-height: 1.4; margin: 4px 0 5px; }
+  .title:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  /* already opened: titles and arXiv numbers turn orange */
+  .title:visited, .paper-id:visited { color: var(--orange-text); }
+  .authors { color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+  .authors strong { color: var(--ink); font-weight: 600; }
+  .empty { color: var(--muted); font-style: italic; padding: 16px 12px; margin: 0; }
+  @media (max-width: 700px) {
+    .page { padding: 24px 18px 80px; }
+    .section { margin-top: 44px; }
+    .section-head h2 { font-size: 28px; }
+    .item { padding: 14px 8px 15px; }
+  }
 </style>
 </head>
 <body>
 <main class="page">
-<header class="header">
-<h1>New Papers</h1>
-<p class="site-link"><a href="/">adarsharon.com</a></p>
+<header>
+<a class="eyebrow" href="/"><span class="eyebrow-line"></span>adarsharon.com</a>
+<h1>New papers<span class="period">.</span></h1>
 <p class="status" id="status">Fetching from INSPIRE&hellip;</p>
 </header>
 <div id="results"></div>
 </main>
-<script src="/projects/arxiv/arxiv_tracker.js?v=2"></script>
+<script src="/projects/arxiv/arxiv_tracker.js?v=3"></script>
 </body>
 </html>

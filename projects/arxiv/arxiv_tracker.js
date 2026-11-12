@@ -6,7 +6,9 @@
  *   2. all hep-th papers from the last DAYS_BACK days, including those
  *      cross-listed to hep-th, of which only those with at least one followed
  *      author are shown.
- * The followed authors are listed in followed_authors.json next to this file.
+ * The followed authors are listed in followed_authors.json next to this file
+ * (the page links to GitHub's editor for it). Followed authors are shown in bold,
+ * and items first seen on this visit are marked as new.
  *
  * Browser version of the PythonAnywhere app flask_app.py (moved here Nov 2026);
  * the author matching below follows the Python code line by line.
@@ -21,6 +23,14 @@ const NUM_CITATIONS = 3;
 const INSPIRE_PAGE_SIZE = 1000;  // INSPIRE's maximum; longer result lists are fetched page by page
 const INSPIRE_API = "https://inspirehep.net/api/literature";
 const REQUEST_TIMEOUT_MS = 30000;
+const EDIT_AUTHORS_URL = "https://github.com/adarsharon/adarsharon.github.io/edit/main/projects/arxiv/followed_authors.json";
+
+// "New since your last visit": this browser remembers when it first saw each paper and
+// citation (localStorage). Loads less than VISIT_GAP_MS apart count as one visit, so a
+// reload keeps the markers; an item is new if this visit is the first time it was seen.
+const STATE_KEY = "arxiv-tracker-v1";
+const VISIT_GAP_MS = 30 * 60 * 1000;
+const SEEN_KEEP_MS = 90 * 86400000;
 
 // ---------------------------------------------------------------------------
 // Text helpers
@@ -233,57 +243,96 @@ function formatAuthorName(author) {
   return given + " " + last;
 }
 
-function formatAuthorsDisplay(list) {
-  return list.map(formatAuthorName).filter(Boolean).join("; ");
+// Author list with the followed authors in bold.
+function formatAuthorsHtml(list, matched) {
+  const followed = new Set((matched || []).map(normalizeNameText));
+  return list.map((a) => {
+    const name = formatAuthorName(a);
+    if (!name) return "";
+    return followed.has(normalizeNameText(cleanText(a))) ? "<strong>" + escapeHtml(name) + "</strong>" : escapeHtml(name);
+  }).filter(Boolean).join("; ");
 }
 
-function formatPaperHtml(p) {
-  const url = escapeHtml(p.id);
-  return '<article class="paper">' +
-    '<div class="paper-top">' +
-    '<a class="paper-id" href="' + url + '">' + escapeHtml(p.arxiv_id) + '</a>' +
-    '<span class="date">' + escapeHtml(formatDot(p.published)) + '</span>' +
-    '</div>' +
-    '<h3 class="paper-title"><a href="' + url + '">' + escapeHtml(p.title) + '</a></h3>' +
-    '<div class="meta"><span class="label">Authors</span>' + escapeHtml(formatAuthorsDisplay(p.authors)) + '</div>' +
-    '</article>';
+const NEW_LABEL = '<span class="new-label">New</span>';
+const ext = (url) => 'href="' + escapeHtml(url) + '" target="_blank" rel="noopener"';
+
+function paperKey(p) { return "p:" + p.arxiv_id; }
+function citationKey(c) { return "c:" + c.record_id; }
+
+function formatPaperHtml(p, isNew) {
+  return '<li class="item' + (isNew ? " new" : "") + '">' +
+    '<div class="item-top"><a class="paper-id" ' + ext(p.id) + '>' + escapeHtml(p.arxiv_id) + '</a>' +
+    '<span class="date">' + escapeHtml(formatDot(p.published)) + '</span>' + (isNew ? NEW_LABEL : "") + '</div>' +
+    '<a class="title" ' + ext(p.id) + '>' + escapeHtml(p.title) + '</a>' +
+    '<div class="authors">' + formatAuthorsHtml(p.authors, p.matched_authors) + '</div></li>';
 }
 
-function formatCitationHtml(c) {
-  const dateStr = c.date ? c.date.slice(0, 10) : "Unknown date";
+function formatCitationHtml(c, isNew) {
+  const dateStr = c.date ? c.date.slice(0, 10).replace(/-/g, ".") : "Unknown date";
   const link = c.record_id ? "https://inspirehep.net/literature/" + c.record_id : "https://inspirehep.net/literature";
-  let authorText = "";
-  if (c.authors.length) {
-    const lastNames = c.authors.map((a) => (a === "et al." ? "et al." : a.split(",")[0].trim()));
-    authorText = ' <span class="citation-authors">(' + escapeHtml(lastNames.join(", ")) + ')</span>';
-  }
-  return '<li class="citation">' +
-    '<span class="date">' + escapeHtml(dateStr) + '</span> ' +
-    '<a href="' + escapeHtml(link) + '">' + escapeHtml(c.title) + '</a>' +
-    authorText + '</li>';
+  const lastNames = c.authors.map((a) => (a === "et al." ? "et al." : a.split(",")[0].trim()));
+  return '<li class="item' + (isNew ? " new" : "") + '">' +
+    '<div class="item-top"><span class="date">' + escapeHtml(dateStr) + '</span>' + (isNew ? NEW_LABEL : "") + '</div>' +
+    '<a class="title" ' + ext(link) + '>' + escapeHtml(c.title) + '</a>' +
+    (lastNames.length ? '<div class="authors">' + escapeHtml(lastNames.join(", ")) + '</div>' : "") + '</li>';
 }
 
-function renderSections(papers, citations, citationError, paperError) {
-  const out = [];
-  out.push('<section class="section"><h2 class="section-title">');
-  out.push('New Citations <span class="date">(' + citations.length + ')</span> ');
-  out.push('<a href="' + INSPIRE_PROFILE_URL + '">INSPIRE profile</a></h2>');
-  if (citations.length) {
-    out.push('<ul class="citation-list">' + citations.map(formatCitationHtml).join("") + '</ul>');
-  } else {
-    out.push('<p class="empty">' + (citationError ? "Could not load citations: " + escapeHtml(citationError) : "No recent citations found.") + '</p>');
-  }
-  out.push('</section>');
-  out.push('<section class="section"><h2 class="section-title">');
-  out.push('New Papers <span class="date">(' + papers.length + ')</span> ');
-  out.push('<a href="https://arxiv.org/list/hep-th/new">arXiv hep-th</a></h2>');
-  if (papers.length) {
-    out.push(papers.map(formatPaperHtml).join(""));
-  } else {
-    out.push('<p class="empty">' + (paperError ? "Could not load papers: " + escapeHtml(paperError) : "No recent papers found.") + '</p>');
-  }
+function sectionHead(title, total, nNew, links) {
+  const count = total + (nNew ? ' &middot; <em>' + nNew + ' new</em>' : "");
+  return '<div class="section-head"><h2>' + title + '<span class="count">' + count + '</span></h2>' +
+    '<div class="head-links">' + links.map(([label, url]) => '<a ' + ext(url) + '>' + label + ' <span>&#8599;</span></a>').join("") + '</div></div>';
+}
+
+function renderSections(papers, citations, citationError, paperError, newKeys) {
+  newKeys = newKeys || new Set();
+  const nNewC = citations.filter((c) => newKeys.has(citationKey(c))).length;
+  const nNewP = papers.filter((p) => newKeys.has(paperKey(p))).length;
+  const out = ['<section class="section">', sectionHead("Citations", citations.length, nNewC, [["INSPIRE profile", INSPIRE_PROFILE_URL]])];
+  if (citations.length) out.push('<ul class="list">' + citations.map((c) => formatCitationHtml(c, newKeys.has(citationKey(c)))).join("") + '</ul>');
+  else out.push('<p class="empty">' + (citationError ? "Could not load citations: " + escapeHtml(citationError) : "No recent citations found.") + '</p>');
+  out.push('</section><section class="section">');
+  out.push(sectionHead("Followed authors", papers.length, nNewP, [["Edit list", EDIT_AUTHORS_URL], ["arXiv hep-th", "https://arxiv.org/list/hep-th/new"]]));
+  if (papers.length) out.push('<ul class="list">' + papers.map((p) => formatPaperHtml(p, newKeys.has(paperKey(p)))).join("") + '</ul>');
+  else out.push('<p class="empty">' + (paperError ? "Could not load papers: " + escapeHtml(paperError) : "No recent papers found.") + '</p>');
   out.push('</section>');
   return out.join("");
+}
+
+// ---------------------------------------------------------------------------
+// Visit memory (per browser)
+// ---------------------------------------------------------------------------
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STATE_KEY)) || {}; } catch (_) { return {}; }
+}
+function saveState(st) {
+  try { localStorage.setItem(STATE_KEY, JSON.stringify(st)); } catch (_) { /* private mode etc. */ }
+}
+function beginVisit(st, now) {
+  st.seen = st.seen || {};
+  if (!st.lastLoad || now - st.lastLoad > VISIT_GAP_MS) {
+    st.prevVisitEnd = st.lastLoad || null;
+    st.visitStart = now;
+  }
+  st.lastLoad = now;
+  return st;
+}
+// Records the keys as seen and returns those that are new on this visit.
+function markSeen(st, keys, now) {
+  const isNew = new Set();
+  for (const k of keys) {
+    if (!(k in st.seen)) st.seen[k] = now;
+    if (st.prevVisitEnd && st.seen[k] >= st.visitStart) isNew.add(k);
+  }
+  for (const [k, t] of Object.entries(st.seen)) if (now - t > SEEN_KEEP_MS) delete st.seen[k];
+  return isNew;
+}
+function ago(ms) {
+  const min = Math.round(ms / 60000);
+  if (min < 60) return min + (min === 1 ? " minute" : " minutes") + " ago";
+  const h = Math.round(min / 60);
+  if (h < 48) return h + (h === 1 ? " hour" : " hours") + " ago";
+  return Math.round(h / 24) + " days ago";
 }
 
 // ---------------------------------------------------------------------------
@@ -353,6 +402,8 @@ async function main() {
   const status = document.getElementById("status");
   const results = document.getElementById("results");
   const nowMs = Date.now();
+  const st = beginVisit(loadState(), nowMs);
+  saveState(st);
   let citations = [], papers = [], citationError = "", paperError = "";
   const citationsTask = fetchJson(citationsUrl())
     .then((d) => { citations = processCitations(d); })
@@ -364,15 +415,22 @@ async function main() {
     })
     .catch((e) => { paperError = e.message || String(e); });
   await Promise.all([citationsTask, papersTask]);
-  results.innerHTML = renderSections(papers, citations, citationError, paperError);
-  status.textContent = "Fresh data fetched at " + utcStamp(Date.now()) + " UTC.";
+  const newKeys = markSeen(st, citations.map(citationKey).concat(papers.map(paperKey)), nowMs);
+  saveState(st);
+  results.innerHTML = renderSections(papers, citations, citationError, paperError, newKeys);
+  let visitNote;
+  if (!st.prevVisitEnd) visitNote = " New items will be marked from your next visit.";
+  else if (newKeys.size) visitNote = ' <span class="new-count">' + newKeys.size + " new</span> since your last visit " + ago(nowMs - st.prevVisitEnd) + ".";
+  else visitNote = " Nothing new since your last visit " + ago(nowMs - st.prevVisitEnd) + ".";
+  status.innerHTML = "Fresh data fetched at " + utcStamp(Date.now()) + " UTC." + visitNote;
 }
 
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     cleanText, normalizeNameText, buildTrackedAuthorCandidates, parseAuthorName, findMatchingTrackedAuthors,
     parseInspireDate, processRecentPapers, processCitations, formatPaperHtml, formatCitationHtml,
-    renderSections, recentPapersUrl, citationsUrl, formatDot, fetchRecentPapers,
+    renderSections, recentPapersUrl, citationsUrl, formatDot, fetchRecentPapers, beginVisit, markSeen, ago,
+    formatAuthorsHtml,
   };
 }
 if (typeof document !== "undefined") {
