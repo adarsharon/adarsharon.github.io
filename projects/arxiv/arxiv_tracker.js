@@ -278,9 +278,10 @@ function formatCitationHtml(c, isNew) {
     (lastNames.length ? '<span class="authors">' + escapeHtml(lastNames.join(", ")) + '</span>' : "") + '</span></li>';
 }
 
-function sectionHead(title, total, nNew, links) {
-  const count = total + (nNew ? ' &middot; <em>' + nNew + ' new</em>' : "");
-  return '<div class="section-head"><h2>' + title + '<span class="count">' + count + '</span></h2>' +
+function sectionHead(title, total, nNew, links) {  // total = null: show only the number of new items
+  const parts = (total === null ? [] : [String(total)]).concat(nNew ? ['<em>' + nNew + ' new</em>'] : []);
+  const count = parts.join(" &middot; ");
+  return '<div class="section-head"><h2>' + title + (count ? '<span class="count">' + count + '</span>' : "") + '</h2>' +
     '<div class="head-links">' + links.map(([label, url]) => '<a ' + ext(url) + '>' + label + ' <span>&#8599;</span></a>').join("") + '</div></div>';
 }
 
@@ -288,7 +289,7 @@ function renderSections(papers, citations, citationError, paperError, newKeys) {
   newKeys = newKeys || new Set();
   const nNewC = citations.filter((c) => newKeys.has(citationKey(c))).length;
   const nNewP = papers.filter((p) => newKeys.has(paperKey(p))).length;
-  const out = ['<section class="section">', sectionHead("Citations", citations.length, nNewC, [["INSPIRE profile", INSPIRE_PROFILE_URL]])];
+  const out = ['<section class="section">', sectionHead("Citations", null, nNewC, [["INSPIRE profile", INSPIRE_PROFILE_URL]])];
   if (citations.length) out.push('<ul class="list">' + citations.map((c) => formatCitationHtml(c, newKeys.has(citationKey(c)))).join("") + '</ul>');
   else out.push('<p class="empty">' + (citationError ? "Could not load citations: " + escapeHtml(citationError) : "No recent citations found.") + '</p>');
   out.push('</section><section class="section">');
