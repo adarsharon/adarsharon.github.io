@@ -1,0 +1,45 @@
+{
+  "_help": "Add or remove beaches here. surfline_spot_id comes from the Surfline URL: surfline.com/surf-report/<name>/<SPOT_ID>. lat/lon are used for the Open-Meteo fallback and the rain check. offshore_dir is the compass direction (degrees) an OFFSHORE wind blows FROM at this beach (~NE for most LA westside beaches). noaa_station is the NOAA tide station used for the fallback tide (9410840 = Santa Monica Pier). exposure scales the fallback wave estimate for spots sheltered from open-ocean swell (Santa Monica Bay ~0.75; open coast 1.0) - tune by comparing against Surfline's site. tz is the beach's IANA timezone (default America/Los_Angeles).",
+  "beaches": [
+    {
+      "name": "Venice Beach Pier",
+      "surfline_spot_id": "5accf279bd428f001ad70a34",
+      "lat": 33.9791,
+      "lon": -118.4695,
+      "offshore_dir": 60,
+      "noaa_station": "9410840",
+      "exposure": 0.8,
+      "tz": "America/Los_Angeles"
+    },
+    {
+      "name": "Santa Monica Beach South",
+      "surfline_spot_id": "5af21e4c8a1a07001a4531dc",
+      "lat": 34.004,
+      "lon": -118.4924,
+      "offshore_dir": 60,
+      "noaa_station": "9410840",
+      "exposure": 0.8,
+      "tz": "America/Los_Angeles"
+    },
+    {
+      "name": "Dockweiler Beach",
+      "surfline_spot_id": "5842041f4e65fad6a77088ff",
+      "lat": 33.9407,
+      "lon": -118.4432,
+      "offshore_dir": 70,
+      "noaa_station": "9410840",
+      "exposure": 0.85,
+      "tz": "America/Los_Angeles"
+    },
+    {
+      "name": "El Porto (advanced-leaning)",
+      "surfline_spot_id": "5842041f4e65fad6a7708906",
+      "lat": 33.9023,
+      "lon": -118.4227,
+      "offshore_dir": 70,
+      "noaa_station": "9410840",
+      "exposure": 1.05,
+      "tz": "America/Los_Angeles"
+    }
+  ]
+}

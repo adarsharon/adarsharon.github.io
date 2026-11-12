@@ -1,0 +1,105 @@
+---
+permalink: /surf/
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Surf Check</title>
+<style>
+  :root {
+    --deep: #0b3a4a; --sea: #14697f; --foam: #eef6f4; --sand: #f4ead8;
+    --go: #1e8a4c; --maybe: #c07f00; --nogo: #b3362b; --ink: #12313b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: Georgia, 'Times New Roman', serif; color: var(--ink);
+    background: linear-gradient(180deg, var(--foam) 0%, var(--sand) 100%);
+    min-height: 100vh;
+  }
+  header {
+    background: var(--deep); color: #fff; padding: 1.1rem 1.2rem;
+    border-bottom: 6px solid var(--sea);
+  }
+  header h1 { margin: 0; font-size: 1.5rem; font-weight: normal; letter-spacing: .06em; }
+  header .sub { font-size: .85rem; opacity: .75; margin-top: .2rem;
+                font-family: Helvetica, Arial, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 1.2rem; }
+  form.picker {
+    display: flex; gap: .6rem; flex-wrap: wrap; align-items: flex-end;
+    background: #fff; border: 1px solid #d8d2c4; border-radius: 10px;
+    padding: 1rem; margin-bottom: 1.4rem;
+  }
+  form.picker label { font-family: Helvetica, Arial, sans-serif; font-size: .78rem;
+                      text-transform: uppercase; letter-spacing: .05em; display: block;
+                      margin-bottom: .25rem; color: var(--sea); }
+  form.picker select {
+    font-size: 1rem; padding: .45rem .5rem; border: 1px solid #c9c2b2;
+    border-radius: 6px; background: #fff; font-family: inherit;
+  }
+  form.picker button {
+    font-size: 1rem; padding: .5rem 1.2rem; border: none; border-radius: 6px;
+    background: var(--sea); color: #fff; cursor: pointer; font-family: inherit;
+  }
+  form.picker button:hover, form.picker button:focus-visible { background: var(--deep); }
+  .beach {
+    background: #fff; border: 1px solid #d8d2c4; border-radius: 10px;
+    margin-bottom: 1.2rem; overflow: hidden;
+  }
+  .beach-head { display: flex; justify-content: space-between; align-items: center;
+                padding: .9rem 1rem; gap: .8rem; flex-wrap: wrap; }
+  .beach-head h2 { margin: 0; font-size: 1.15rem; font-weight: normal; }
+  .badge {
+    font-family: Helvetica, Arial, sans-serif; font-weight: bold;
+    padding: .35rem .9rem; border-radius: 999px; color: #fff; font-size: .95rem;
+    letter-spacing: .05em; white-space: nowrap;
+  }
+  .badge.GO { background: var(--go); }
+  .badge.MAYBE { background: var(--maybe); }
+  .badge.NOGO, .badge.NODATA { background: var(--nogo); }
+  .subverdicts { display: flex; gap: 1rem; padding: 0 1rem .6rem;
+                 font-family: Helvetica, Arial, sans-serif; font-size: .82rem; }
+  .subverdicts span.yes::before { content: "✓ "; color: var(--go); font-weight: bold; }
+  .subverdicts span.no::before  { content: "✗ "; color: var(--nogo); font-weight: bold; }
+  ul.reasons { margin: 0; padding: .8rem 1rem 1rem 1.6rem; border-top: 1px dashed #d8d2c4;
+               font-size: .93rem; line-height: 1.55; }
+  .numbers { font-family: Helvetica, Arial, sans-serif; font-size: .78rem; color: #5a6b70;
+             padding: 0 1rem .8rem; }
+  footer { text-align: center; font-size: .75rem; color: #7a8a8e; padding: 1rem;
+           font-family: Helvetica, Arial, sans-serif; }
+  a { color: var(--sea); }
+  .loading { font-family: Helvetica, Arial, sans-serif; color: #5a6b70; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Surf Check</h1>
+  <div class="sub">Green-wave go/no-go &middot; small unbroken faces for a progressing beginner &middot; edit beaches.json to change spots</div>
+</header>
+<main>
+  <form class="picker" id="picker">
+    <div>
+      <label for="beach">Beach</label>
+      <select name="beach" id="beach"></select>
+    </div>
+    <div>
+      <label for="date">Day</label>
+      <select name="date" id="date"></select>
+    </div>
+    <div>
+      <label for="hour">Around</label>
+      <select name="hour" id="hour"></select>
+    </div>
+    <button type="submit">Check the surf</button>
+  </form>
+  <div id="results"></div>
+</main>
+<footer>
+  Surfline ratings are for experienced surfers &mdash; this page scores the raw numbers
+  for a beginner instead. Always check posted beach-hazard signs.
+</footer>
+<script src="/projects/surf/surf_check.js?v=1"></script>
+</body>
+</html>

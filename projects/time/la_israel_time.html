@@ -1,0 +1,69 @@
+---
+permalink: /time/
+---
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LA &harr; Israel time</title>
+<style>
+ *{box-sizing:border-box}
+ body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:20px;
+      color:#1f2937;background:linear-gradient(160deg,#eef2f7,#dfe7f1)}
+ .card{max-width:520px;margin:36px auto;background:#fff;border-radius:18px;padding:28px 26px 22px;
+       box-shadow:0 10px 30px rgba(30,50,80,.12)}
+ h1{font-size:1.5em;margin:0 0 4px;text-align:center}
+ .sub{text-align:center;color:#6b7280;font-size:.85em;margin-bottom:22px}
+ .field-label{font-size:.8em;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+ input[type=date],select{font:inherit;font-size:1.15em;padding:10px 12px;border:1px solid #d1d5db;border-radius:10px;
+       background:#f9fafb;color:#111827;width:100%}
+ select{appearance:none;-webkit-appearance:none;text-align:center;text-align-last:center;cursor:pointer}
+ input:focus,select:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.2)}
+ .city{margin-top:20px;padding:16px;border-radius:14px;background:#f3f6fa}
+ .city h2{font-size:1.1em;margin:0 0 10px}
+ .row{display:flex;align-items:center;gap:8px}
+ .colon{font-size:1.5em;font-weight:700;color:#6b7280}
+ .note{color:#6b7280;font-size:.78em;margin-top:8px;min-height:1.2em}
+ button{font:inherit;font-weight:600;width:100%;margin-top:12px;padding:12px;border:0;border-radius:10px;
+        background:#2563eb;color:#fff;cursor:pointer;transition:background .15s}
+ button:hover{background:#1d4ed8}
+ .err{color:#b91c1c;text-align:center;margin:14px 0 0}
+ .now{display:flex;justify-content:space-around;margin-top:22px;padding-top:16px;border-top:1px solid #e5e7eb;
+      color:#6b7280;font-size:.8em;text-align:center}
+ .now b{display:block;color:#1f2937;font-size:1.25em}
+</style></head><body>
+<div class="card">
+<h1>LA &harr; Israel</h1>
+<div class="sub">Time converter</div>
+<form onsubmit="return false">
+ <div class="field-label">Date (in the "from" city)</div>
+ <input type="date" id="day">
+
+ <div class="city">
+  <h2>Los Angeles</h2>
+  <div class="row">
+   <select id="la_h" aria-label="Los Angeles hour"></select>
+   <span class="colon">:</span>
+   <select id="la_m" aria-label="Los Angeles minutes"></select>
+  </div>
+  <div class="note" id="la_note"></div>
+  <button type="button" id="go_la">LA &rarr; Israel</button>
+ </div>
+ <div class="city">
+  <h2>Israel</h2>
+  <div class="row">
+   <select id="il_h" aria-label="Israel hour"></select>
+   <span class="colon">:</span>
+   <select id="il_m" aria-label="Israel minutes"></select>
+  </div>
+  <div class="note" id="il_note"></div>
+  <button type="button" id="go_il">Israel &rarr; LA</button>
+ </div>
+</form>
+<p class="err" id="err"></p>
+<div class="now">
+ <div>Now in LA<b id="now_la"></b></div>
+ <div>Now in Israel<b id="now_il"></b></div>
+</div>
+</div>
+<script src="/projects/time/la_israel_time.js?v=1"></script>
+</body></html>

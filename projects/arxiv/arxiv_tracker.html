@@ -1,0 +1,223 @@
+---
+permalink: /arxiv/
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>New Papers</title>
+<style>
+    :root {
+        --background: #fbfaf7;
+        --ink: #20252b;
+        --muted: #68727d;
+        --line: #d8ddd6;
+        --accent: #176f7a;
+        --accent-dark: #0f4f57;
+        --visited: #8a3f6f;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: var(--background);
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 17px;
+        line-height: 1.35;
+    }
+
+    .page {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 24px 28px 42px;
+    }
+
+    .header {
+        padding-bottom: 12px;
+        margin-bottom: 18px;
+        border-bottom: 2px solid var(--line);
+        text-align: center;
+    }
+
+    h1 {
+        margin: 0;
+        color: var(--accent-dark);
+        font-size: 38px;
+        line-height: 1.1;
+        letter-spacing: 0;
+    }
+
+    .site-link {
+        margin: 6px 0 0;
+        font-size: 15px;
+    }
+
+    .site-link a,
+    .site-link a:visited {
+        color: var(--accent);
+    }
+
+    .site-link a:hover {
+        color: var(--accent-dark);
+    }
+
+    .status {
+        margin: 9px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        font-style: italic;
+    }
+
+    .section {
+        margin-top: 20px;
+    }
+
+    .section-title {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        margin: 0 0 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--line);
+        color: var(--accent-dark);
+        font-size: 22px;
+        line-height: 1.2;
+    }
+
+    .section-title a {
+        font-size: 15px;
+        font-weight: normal;
+    }
+
+    a {
+        color: var(--accent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+    }
+
+    a:hover {
+        color: var(--accent-dark);
+    }
+
+    a:visited {
+        color: var(--visited);
+    }
+
+    .citation-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.25;
+    }
+
+    .citation {
+        margin: 2px 0;
+    }
+
+    .citation-authors,
+    .date {
+        color: var(--muted);
+    }
+
+    .date {
+        font-size: 15px;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .paper {
+        padding: 10px 0 11px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .paper-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .paper-id {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .paper-title {
+        margin: 3px 0 4px;
+        font-size: 19px;
+        line-height: 1.2;
+    }
+
+    .paper-title a {
+        color: var(--ink);
+        text-decoration: none;
+    }
+
+    .paper-title a:visited {
+        color: var(--visited);
+    }
+
+    .paper-title a:hover {
+        color: var(--accent-dark);
+        text-decoration: underline;
+    }
+
+    .meta {
+        margin: 0;
+    }
+
+    .label {
+        display: inline-block;
+        margin-right: 7px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .empty {
+        color: var(--muted);
+        font-style: italic;
+    }
+
+    @media (max-width: 700px) {
+        body {
+            font-size: 16px;
+        }
+
+        .page {
+            padding: 20px 16px 34px;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+        }
+
+        .paper-title {
+            font-size: 18px;
+        }
+    }
+</style>
+</head>
+<body>
+<main class="page">
+<header class="header">
+<h1>New Papers</h1>
+<p class="site-link"><a href="/">adarsharon.com</a></p>
+<p class="status" id="status">Fetching from INSPIRE&hellip;</p>
+</header>
+<div id="results"></div>
+</main>
+<script src="/projects/arxiv/arxiv_tracker.js?v=1"></script>
+</body>
+</html>
