@@ -5,39 +5,77 @@ permalink: /time/
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>LA &harr; Israel time</title>
+<link rel="icon" href="/projects/time/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/projects/time/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/projects/time/apple-touch-icon.png">
+<link rel="manifest" href="/projects/time/manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="LA ↔ Israel">
+<meta name="theme-color" content="#f8f7f3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,450;6..72,500;6..72,600&display=swap" rel="stylesheet">
 <style>
  *{box-sizing:border-box}
- body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:20px;
+ :root{--serif:"Newsreader",Georgia,"Times New Roman",serif;--sans:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+ body{margin:0;min-height:100vh;font-family:var(--sans);font-size:20px;-webkit-font-smoothing:antialiased;
       color:#253438;background:linear-gradient(160deg,#f8f7f3,#efede7)}
- .card{max-width:520px;margin:36px auto;background:#fffefa;border-radius:18px;padding:28px 26px 22px;
+ a{color:inherit;text-decoration:none}
+ .card{max-width:560px;margin:36px auto;background:#fffefa;border-radius:18px;padding:22px 26px 22px;
        box-shadow:0 10px 30px rgba(40,57,52,.11)}
- h1{font-size:1.5em;margin:0 0 4px;text-align:center}
- .sub{text-align:center;color:#646f6d;font-size:.85em;margin-bottom:22px}
- .field-label{font-size:.8em;font-weight:600;color:#46615c;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
- input[type=date],select{font:inherit;font-size:1.15em;padding:10px 12px;border:1px solid #bac7c0;border-radius:10px;
+ .eyebrow{display:inline-flex;align-items:center;gap:10px;color:#46615c;font-size:11px;text-transform:uppercase;font-weight:700;letter-spacing:.04em}
+ .eyebrow-line{display:inline-block;height:1px;width:29px;background:#ad6a49}
+ .eyebrow:hover{color:#253438}
+ h1{font:450 1.9em/1.1 var(--serif);letter-spacing:-.035em;margin:12px 0 4px;text-align:center}
+ h1 .period{color:#ad6a49}
+ .sub{text-align:center;color:#646f6d;font-size:.8em;margin-bottom:20px}
+ .field-label{font-size:.7em;font-weight:700;color:#46615c;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+ .date-row{display:flex;gap:10px}
+ input[type=date],select{font:inherit;font-size:1.1em;padding:10px 12px;border:1px solid #bac7c0;border-radius:10px;
        background:#f8f7f3;color:#253438;width:100%}
  select{appearance:none;-webkit-appearance:none;text-align:center;text-align-last:center;cursor:pointer}
  input:focus,select:focus{outline:none;border-color:#ad6a49;box-shadow:0 0 0 3px rgba(173,106,73,.2)}
- .city{margin-top:20px;padding:16px;border-radius:14px;background:#f1efe9}
- .city h2{font-size:1.1em;margin:0 0 10px}
+ .now-btn{font:inherit;font-size:.75em;font-weight:600;padding:0 16px;border:1px solid #bac7c0;border-radius:10px;background:#fffefa;color:#394c50;cursor:pointer;white-space:nowrap}
+ .now-btn:hover{border-color:#ad6a49;color:#a16244}
+ .city{margin-top:16px;padding:14px 16px;border-radius:14px;background:#f1efe9}
+ .city h2{font:500 1.05em var(--serif);margin:0 0 8px}
  .row{display:flex;align-items:center;gap:8px}
  .colon{font-size:1.5em;font-weight:700;color:#646f6d}
- .note{color:#646f6d;font-size:.78em;margin-top:8px;min-height:1.2em}
- button{font:inherit;font-weight:600;width:100%;margin-top:12px;padding:12px;border:0;border-radius:10px;
-        background:#253438;color:#f9f8f4;cursor:pointer;transition:background .15s}
- button:hover{background:#3d595a}
+ .note{color:#646f6d;font-size:.75em;margin-top:8px;min-height:1.2em}
+ .err{color:#a16244;text-align:center;margin:12px 0 0;font-size:.8em}
+ .err:empty{display:none}
+ .strip{margin-top:20px}
+ .strip-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.68em;color:#646f6d;margin-bottom:6px}
+ .strip-head b{color:#253438;font-weight:600}
+ .strip-grid{display:grid;grid-template-columns:50px repeat(24,minmax(0,1fr));gap:2px 1px;align-items:center}
+ .strip-label{font-size:.55em;font-weight:700;color:#46615c;text-transform:uppercase;letter-spacing:.04em}
+ .cell{font:inherit;font-size:.55em;font-weight:500;height:26px;padding:0;border:0;border-radius:3px;background:#efede7;color:#5c6765;cursor:pointer;
+       font-variant-numeric:tabular-nums;display:flex;align-items:center;justify-content:center;overflow:visible;white-space:nowrap}
+ .cell.awake{background:#d3dcd7;color:#394c50}
+ .cell.work{background:#46615c;color:#f8f7f3}
+ .cell.sel{box-shadow:inset 0 0 0 2px #ad6a49}
+ .cell:hover{filter:brightness(.95)}
+ .both{height:4px;border-radius:2px}
+ .both.on{background:#ad6a49}
+ .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.6em;color:#646f6d;margin-top:8px}
+ .legend i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-2px;margin-right:5px}
+ .overlap{font-size:.7em;color:#394c50;margin:8px 0 0}
+ .now{display:flex;justify-content:space-around;margin-top:20px;padding-top:14px;border-top:1px solid #dbdfda;
+      color:#646f6d;font-size:.75em;text-align:center}
+ .now b{display:block;color:#253438;font-size:1.25em;font-weight:600}
  ::selection{background:#d8c6b8;color:#253438}
- .err{color:#a16244;text-align:center;margin:14px 0 0}
- .now{display:flex;justify-content:space-around;margin-top:22px;padding-top:16px;border-top:1px solid #dbdfda;
-      color:#646f6d;font-size:.8em;text-align:center}
- .now b{display:block;color:#253438;font-size:1.25em}
+ @media (max-width:560px){
+  .card{margin:0;border-radius:0;min-height:100vh;padding:18px 16px}
+  .strip-grid{grid-template-columns:42px repeat(24,minmax(0,1fr))}
+  .cell:not(.tick){color:transparent}
+ }
 </style></head><body>
 <div class="card">
-<h1>LA &harr; Israel</h1>
+<a class="eyebrow" href="/"><span class="eyebrow-line"></span>adarsharon.com</a>
+<h1>LA &harr; Israel<span class="period">.</span></h1>
 <div class="sub">Time converter</div>
 <form onsubmit="return false">
- <div class="field-label">Date (in the "from" city)</div>
- <input type="date" id="day">
+ <div class="field-label" id="day_label">Date in Los Angeles</div>
+ <div class="date-row"><input type="date" id="day"><button type="button" class="now-btn" id="now_btn">Now</button></div>
 
  <div class="city">
   <h2>Los Angeles</h2>
@@ -47,7 +85,6 @@ permalink: /time/
    <select id="la_m" aria-label="Los Angeles minutes"></select>
   </div>
   <div class="note" id="la_note"></div>
-  <button type="button" id="go_la">LA &rarr; Israel</button>
  </div>
  <div class="city">
   <h2>Israel</h2>
@@ -57,14 +94,19 @@ permalink: /time/
    <select id="il_m" aria-label="Israel minutes"></select>
   </div>
   <div class="note" id="il_note"></div>
-  <button type="button" id="go_il">Israel &rarr; LA</button>
  </div>
 </form>
 <p class="err" id="err"></p>
+<div class="strip">
+ <div class="strip-head"><b id="strip_title"></b><span>tap an hour to choose it</span></div>
+ <div class="strip-grid" id="strip_grid"></div>
+ <div class="legend"><span><i style="background:#46615c"></i>working hours 9&ndash;18</span><span><i style="background:#d3dcd7"></i>fine for a call 7&ndash;22</span><span><i style="background:#ad6a49;height:4px;vertical-align:2px"></i>fine for both</span></div>
+ <p class="overlap" id="overlap"></p>
+</div>
 <div class="now">
  <div>Now in LA<b id="now_la"></b></div>
  <div>Now in Israel<b id="now_il"></b></div>
 </div>
 </div>
-<script src="/projects/time/la_israel_time.js?v=1"></script>
+<script src="/projects/time/la_israel_time.js?v=2"></script>
 </body></html>

@@ -4,8 +4,8 @@ Three small pages that run entirely in the browser, one per folder. The `permali
 
 | Address | Folder | What it shows |
 |---|---|---|
-| [adarsharon.com/arxiv](https://adarsharon.com/arxiv/) | `arxiv/` | The three newest citations of my papers on INSPIRE, and the hep-th papers of the last 30 days, cross-lists included, by the authors listed in `followed_authors.json`. |
-| [adarsharon.com/time](https://adarsharon.com/time/) | `time/` | LA &harr; Israel time converter; the browser's time-zone data handles daylight saving in both countries. |
+| [adarsharon.com/arxiv](https://adarsharon.com/arxiv/) | `arxiv/` | The three newest citations of my papers on INSPIRE, and the hep-th papers of the last 30 days, cross-lists included, by the authors listed in `followed_authors.json` (shown in bold). Items first seen on the current visit are marked new; this memory is kept per browser. |
+| [adarsharon.com/time](https://adarsharon.com/time/) | `time/` | LA &harr; Israel time converter that updates as you type, with a 24-hour strip of both cities' working hours (9–18) and hours fine for a call (7–22), set at the top of `la_israel_time.js`. The browser's time-zone data handles daylight saving in both countries. |
 | [adarsharon.com/surf](https://adarsharon.com/surf/) | `surf/` | Beginner green-wave go/no-go for LA westside beaches, from Open-Meteo, NWS and NOAA tide predictions. The spots are in `beaches.json`; the thresholds are at the top of `surf_check.js`. |
 
 The data comes straight from INSPIRE, Open-Meteo, NWS and NOAA, which all accept requests from browsers. The pages carry a `noindex` tag, so search engines leave them out.
