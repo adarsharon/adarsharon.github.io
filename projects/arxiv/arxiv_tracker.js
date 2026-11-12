@@ -67,13 +67,16 @@ const pad2 = (n) => String(n).padStart(2, "0");
 function trackedAuthorCandidatesFromCode(code) {
   const parts = code.split("_").map(normalizeNameText).filter(Boolean);
   if (parts.length < 2) return [];
-  const candidates = [
-    { last: parts[0], given: parts.slice(1), source: code },
-    { last: parts[parts.length - 1], given: parts.slice(0, -1), source: code },
-  ];
+  // A part can hold several words: a compound surname such as Parra-Martinez becomes
+  // "parra martinez", and then the whole surname has to match, not only its last word.
+  const cand = (surnamePart, given) => {
+    const surname = surnamePart.split(" ");
+    return { last: surname[surname.length - 1], surname, given, source: code };
+  };
+  const candidates = [cand(parts[0], parts.slice(1)), cand(parts[parts.length - 1], parts.slice(0, -1))];
   const unique = [], seen = new Set();
   for (const c of candidates) {
-    const key = JSON.stringify([c.last, c.given]);
+    const key = JSON.stringify([c.surname, c.given]);
     if (!seen.has(key)) { seen.add(key); unique.push(c); }
   }
   return unique;
@@ -87,7 +90,7 @@ function buildTrackedAuthorCandidates(authors, aliases) {
   }
   const unique = [], seen = new Set();
   for (const c of candidates) {
-    const key = JSON.stringify([c.last, c.given, c.source]);
+    const key = JSON.stringify([c.surname, c.given, c.source]);
     if (!seen.has(key)) { seen.add(key); unique.push(c); }
   }
   return unique;
@@ -101,12 +104,12 @@ function parseAuthorName(name) {
     const lastTokens = nameTokens(name.slice(0, i));
     const givenTokens = nameTokens(name.slice(i + 1));
     if (!lastTokens.length) return null;
-    return { last: lastTokens[lastTokens.length - 1], given: givenTokens };
+    return { last: lastTokens[lastTokens.length - 1], surname: lastTokens, given: givenTokens };
   }
-  const tokens = nameTokens(name);
+  const tokens = nameTokens(name);  // "First Last" form: the surname is some tail of the tokens
   if (!tokens.length) return null;
-  if (tokens.length === 1) return { last: tokens[0], given: [] };
-  return { last: tokens[tokens.length - 1], given: tokens.slice(0, -1) };
+  if (tokens.length === 1) return { last: tokens[0], surname: tokens, given: [] };
+  return { last: tokens[tokens.length - 1], surname: tokens, given: tokens.slice(0, -1) };
 }
 
 function tokenMatches(expected, seen) {
@@ -129,8 +132,14 @@ function givenNamesMatch(expected, seen) {
   return true;
 }
 
+function endsWith(tokens, tail) {
+  return tail.length <= tokens.length && tail.every((t, i) => tokens[tokens.length - tail.length + i] === t);
+}
+
 function authorMatches(tracked, actual) {
-  return tracked.last === actual.last && givenNamesMatch(tracked.given, actual.given);
+  return tracked.last === actual.last &&
+    (tracked.surname.length < 2 || endsWith(actual.surname, tracked.surname)) &&
+    givenNamesMatch(tracked.given, actual.given);
 }
 
 function findMatchingTrackedAuthors(authorsList, candidates) {
@@ -421,7 +430,7 @@ async function main() {
   saveState(st);
   results.innerHTML = renderSections(papers, citations, citationError, paperError, newKeys);
   let visitNote;
-  if (!st.prevVisitEnd) visitNote = " New items will be marked from your next visit.";
+  if (!st.prevVisitEnd) visitNote = " First visit recorded in this browser: from now on, items added since your previous visit are marked new.";
   else if (newKeys.size) visitNote = ' <span class="new-count">' + newKeys.size + " new</span> since your last visit " + ago(nowMs - st.prevVisitEnd) + ".";
   else visitNote = " Nothing new since your last visit " + ago(nowMs - st.prevVisitEnd) + ".";
   status.innerHTML = "Fresh data fetched at " + utcStamp(Date.now()) + " UTC." + visitNote;

@@ -1,5 +1,5 @@
 {
-  "_help": "Authors whose new hep-th papers appear on adarsharon.com/arxiv. Write each name as Last_First, e.g. Seiberg_Nathan; a first initial also works (Klebanov_I). Matching ignores accents and capitalization and accepts initials. Alternate spellings go under aliases, e.g. \"Rychkov_Slava\": [\"Rychkov_Vyacheslav\"].",
+  "_help": "Authors whose new hep-th papers appear on adarsharon.com/arxiv. Write each name as Last_First, e.g. Seiberg_Nathan; a first initial also works (Klebanov_I). Write a compound surname in full with its hyphen, e.g. Parra-Martinez_Julio; the whole surname then has to match, with or without the hyphen. Matching ignores accents and capitalization and accepts initials. Alternate spellings go under aliases, e.g. \"Rychkov_Slava\": [\"Rychkov_Vyacheslav\"].",
   "authors": [
     "Sharon_Adar",
     "Aharony_Ofer",
@@ -39,6 +39,7 @@
     "Narovlansky_Vladimir",
     "Ohmori_Kantaro",
     "Palti_Eran",
+    "Parra-Martinez_Julio",
     "Popov_Fedor",
     "Shao_Shu",
     "Rayhaun_Brandon",
