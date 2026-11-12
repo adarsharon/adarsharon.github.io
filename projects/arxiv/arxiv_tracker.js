@@ -291,7 +291,7 @@ function sectionHead(title, total, nNew, links) {  // total = null: show only th
   const parts = (total === null ? [] : [String(total)]).concat(nNew ? ['<em>' + nNew + ' new</em>'] : []);
   const count = parts.join(" &middot; ");
   return '<div class="section-head"><h2>' + title + (count ? '<span class="count">' + count + '</span>' : "") + '</h2>' +
-    '<div class="head-links">' + links.map(([label, url]) => '<a ' + ext(url) + '>' + label + ' <span>&#8599;</span></a>').join("") + '</div></div>';
+    '<div class="head-links">' + links.map(([label, url]) => '<a ' + ext(url) + '>' + label + '&nbsp;<span>&#8599;</span></a>').join("") + '</div></div>';
 }
 
 function renderSections(papers, citations, citationError, paperError, newKeys) {
