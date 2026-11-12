@@ -3,8 +3,9 @@
  *
  * Runs entirely in the browser; every page load fetches fresh data from INSPIRE:
  *   1. the newest papers citing INSPIRE author INSPIRE_AUTHOR_ID;
- *   2. all hep-th papers (primary category) from the last DAYS_BACK days,
- *      of which only those with at least one followed author are shown.
+ *   2. all hep-th papers from the last DAYS_BACK days, including those
+ *      cross-listed to hep-th, of which only those with at least one followed
+ *      author are shown.
  * The followed authors are listed in followed_authors.json next to this file.
  *
  * Browser version of the PythonAnywhere app flask_app.py (moved here Nov 2026);
@@ -17,7 +18,7 @@ const INSPIRE_PROFILE_URL = "https://inspirehep.net/authors/1683407";
 const AUTHORS_FILE = "/projects/arxiv/followed_authors.json";
 const DAYS_BACK = 30;
 const NUM_CITATIONS = 3;
-const INSPIRE_PAPER_RESULT_LIMIT = 1000;
+const INSPIRE_PAGE_SIZE = 1000;  // INSPIRE's maximum; longer result lists are fetched page by page
 const INSPIRE_API = "https://inspirehep.net/api/literature";
 const REQUEST_TIMEOUT_MS = 30000;
 
@@ -312,14 +313,25 @@ function inspireUrl(params) {
   return INSPIRE_API + "?" + new URLSearchParams(params).toString();
 }
 
-function recentPapersUrl(nowMs) {
+function recentPapersUrl(nowMs, page = 1) {
   const start = new Date(nowMs - DAYS_BACK * 86400000).toISOString().slice(0, 10);
   return inspireUrl({
-    q: "primarch:hep-th and de > " + start,
+    q: "arxiv_eprints.categories:hep-th and de > " + start,  // hep-th as primary or cross-list
     sort: "mostrecent",
-    size: String(INSPIRE_PAPER_RESULT_LIMIT),
+    size: String(INSPIRE_PAGE_SIZE),
+    page: String(page),
     fields: "titles,authors.full_name,arxiv_eprints,control_number,earliest_date",
   });
+}
+
+// All pages of the recent-papers query, merged into one INSPIRE-style response.
+async function fetchRecentPapers(nowMs) {
+  const first = await fetchJson(recentPapersUrl(nowMs, 1));
+  const total = (first.hits && first.hits.total) || 0;
+  const pages = Math.ceil(total / INSPIRE_PAGE_SIZE);
+  const rest = await Promise.all(Array.from({ length: Math.max(0, pages - 1) }, (_, i) => fetchJson(recentPapersUrl(nowMs, i + 2))));
+  const hits = [first, ...rest].flatMap((d) => (d.hits && d.hits.hits) || []);
+  return { hits: { total, hits } };
 }
 
 function citationsUrl() {
@@ -345,7 +357,7 @@ async function main() {
   const citationsTask = fetchJson(citationsUrl())
     .then((d) => { citations = processCitations(d); })
     .catch((e) => { citationError = e.message || String(e); });
-  const papersTask = Promise.all([fetchJson(AUTHORS_FILE + "?t=" + nowMs, 1), fetchJson(recentPapersUrl(nowMs))])
+  const papersTask = Promise.all([fetchJson(AUTHORS_FILE + "?t=" + nowMs, 1), fetchRecentPapers(nowMs)])
     .then(([cfg, d]) => {
       const candidates = buildTrackedAuthorCandidates(cfg.authors || [], cfg.aliases || {});
       papers = processRecentPapers(d, candidates, nowMs);
@@ -353,14 +365,14 @@ async function main() {
     .catch((e) => { paperError = e.message || String(e); });
   await Promise.all([citationsTask, papersTask]);
   results.innerHTML = renderSections(papers, citations, citationError, paperError);
-  status.textContent = "Fresh data fetched at " + utcStamp(Date.now()) + " UTC. No cache used.";
+  status.textContent = "Fresh data fetched at " + utcStamp(Date.now()) + " UTC.";
 }
 
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     cleanText, normalizeNameText, buildTrackedAuthorCandidates, parseAuthorName, findMatchingTrackedAuthors,
     parseInspireDate, processRecentPapers, processCitations, formatPaperHtml, formatCitationHtml,
-    renderSections, recentPapersUrl, citationsUrl, formatDot,
+    renderSections, recentPapersUrl, citationsUrl, formatDot, fetchRecentPapers,
   };
 }
 if (typeof document !== "undefined") {

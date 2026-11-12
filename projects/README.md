@@ -4,7 +4,7 @@ Three small pages that run entirely in the browser, one per folder. The `permali
 
 | Address | Folder | What it shows |
 |---|---|---|
-| [adarsharon.com/arxiv](https://adarsharon.com/arxiv/) | `arxiv/` | The three newest citations of my papers on INSPIRE, and the hep-th papers of the last 30 days by the authors listed in `followed_authors.json`. |
+| [adarsharon.com/arxiv](https://adarsharon.com/arxiv/) | `arxiv/` | The three newest citations of my papers on INSPIRE, and the hep-th papers of the last 30 days, cross-lists included, by the authors listed in `followed_authors.json`. |
 | [adarsharon.com/time](https://adarsharon.com/time/) | `time/` | LA &harr; Israel time converter; the browser's time-zone data handles daylight saving in both countries. |
 | [adarsharon.com/surf](https://adarsharon.com/surf/) | `surf/` | Beginner green-wave go/no-go for LA westside beaches, from Open-Meteo, NWS and NOAA tide predictions. The spots are in `beaches.json`; the thresholds are at the top of `surf_check.js`. |
 

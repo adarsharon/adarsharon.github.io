@@ -10,13 +10,15 @@ permalink: /arxiv/
 <title>New Papers</title>
 <style>
     :root {
-        --background: #fbfaf7;
-        --ink: #20252b;
-        --muted: #68727d;
-        --line: #d8ddd6;
-        --accent: #176f7a;
-        --accent-dark: #0f4f57;
-        --visited: #8a3f6f;
+        /* colours of adarsharon.com (styles.css) */
+        --background: #f8f7f3;   /* --paper */
+        --ink: #253438;          /* --ink: text */
+        --muted: #646f6d;        /* --muted: dates, labels */
+        --line: #dbdfda;         /* --line */
+        --accent: #46615c;       /* --green: links */
+        --accent-dark: #253438;  /* --ink: page and section titles */
+        --hover: #ad6a49;        /* --orange: hover, as on the site */
+        --visited: #646f6d;      /* papers already opened fade to grey */
     }
 
     * {
@@ -64,7 +66,7 @@ permalink: /arxiv/
     }
 
     .site-link a:hover {
-        color: var(--accent-dark);
+        color: var(--hover);
     }
 
     .status {
@@ -102,7 +104,12 @@ permalink: /arxiv/
     }
 
     a:hover {
-        color: var(--accent-dark);
+        color: var(--hover);
+    }
+
+    ::selection {
+        background: #d8c6b8;
+        color: var(--ink);
     }
 
     a:visited {
@@ -165,7 +172,7 @@ permalink: /arxiv/
     }
 
     .paper-title a:hover {
-        color: var(--accent-dark);
+        color: var(--hover);
         text-decoration: underline;
     }
 
@@ -218,6 +225,6 @@ permalink: /arxiv/
 </header>
 <div id="results"></div>
 </main>
-<script src="/projects/arxiv/arxiv_tracker.js?v=1"></script>
+<script src="/projects/arxiv/arxiv_tracker.js?v=2"></script>
 </body>
 </html>
