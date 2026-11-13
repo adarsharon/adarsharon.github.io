@@ -15,9 +15,9 @@
 .hero-b-facts>div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:18px;align-items:baseline}
 .hero-b-facts dt{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .hero-b-facts dd{margin:0}
-.hero-b-email{font-family:var(--serif);font-size:20px;letter-spacing:-.01em;color:var(--ink);text-decoration:underline;text-decoration-color:#bec8c0;text-underline-offset:5px}
-.hero-b-email span{color:var(--orange);font-family:var(--sans);font-size:15px;text-decoration:none;display:inline-block}
-.hero-b-email:hover{color:var(--orange)}
+.hero-b-cv{font-family:var(--serif);font-size:22px;letter-spacing:-.01em;color:var(--ink);text-decoration:underline;text-decoration-color:#9fb0a8;text-decoration-thickness:1px;text-underline-offset:6px}
+.hero-b-cv span{color:var(--orange);font-family:var(--sans);font-size:16px;display:inline-block;text-decoration:none}
+.hero-b-cv:hover{color:var(--orange);text-decoration-color:var(--orange)}
 .hero-b-links{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:13px;font-weight:700}
 .hero-b-links a span{color:var(--orange);font-weight:400}
 .hero-b-links a:hover{color:var(--orange)}
@@ -40,9 +40,8 @@
 .feature-article:hover .underline-link{color:var(--orange)}
 .feature-article-more{margin-top:24px}
 
-/* CV and Contact after the featured article */
-.layout-b .cv-feature{border-top:1px solid var(--line-dark)}
-.layout-b .cv-feature+.contact-section{padding-top:var(--section-gap)}
+/* Contact directly after the featured article */
+.layout-b .feature-article-section+.contact-section{padding-top:var(--section-gap);border-top:1px solid var(--line-dark)}
 
 @media(max-width:1100px){
   .hero-b-grid{grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:48px}
@@ -60,6 +59,6 @@
   .hero-b-name{font-size:clamp(46px,14vw,64px);white-space:normal}
   .hero-b .portrait-frame{max-width:250px}
   .hero-b-facts>div{grid-template-columns:1fr;gap:6px}
-  .hero-b-email{font-size:18px}
+  .hero-b-cv{font-size:20px}
   .feature-article-copy h2{font-size:40px}
 }
