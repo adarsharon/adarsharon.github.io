@@ -20,7 +20,7 @@
       ".profile-links", ".cv-feature", ".intro-section .section-side", ".intro-section .section-body", ".feature-card",
       ".editorial-label", ".editorial-content", ".contact-section > div",
       ".research-aside", ".research-body > h2", ".research-body > p", ".papers-label", ".paper-list li", ".profile-outro > *",
-      ".notes-heading > *", ".writing-feature", ".credit-line", ".talk-item"
+      ".notes-heading > *", ".writing-feature", ".credit-line", ".talk-item", ".feature-article-section .section-side", ".feature-article", ".feature-article-more"
     ];
     const staggered = [".feature-card", ".paper-list li", ".notes-heading > *", ".profile-outro > *"];
     const io = new IntersectionObserver(entries => {
