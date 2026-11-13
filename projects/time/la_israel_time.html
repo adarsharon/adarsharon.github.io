@@ -27,7 +27,7 @@ permalink: /time/
  .eyebrow:hover{color:#253438}
  h1{font:450 1.9em/1.1 var(--serif);letter-spacing:-.035em;margin:12px 0 4px;text-align:center}
  h1 .period{color:#ad6a49}
- .sub{text-align:center;color:#646f6d;font-size:.8em;margin-bottom:20px}
+ .sub{text-align:center;color:#646f6d;font-size:.8em;margin-bottom:16px}
  .field-label{font-size:.7em;font-weight:700;color:#46615c;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
  .date-row{display:flex;gap:10px}
  input[type=date],select{font:inherit;font-size:1.1em;padding:10px 12px;border:1px solid #bac7c0;border-radius:10px;
@@ -59,7 +59,7 @@ permalink: /time/
  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.6em;color:#646f6d;margin-top:8px}
  .legend i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-2px;margin-right:5px}
  .overlap{font-size:.7em;color:#394c50;margin:8px 0 0}
- .now{display:flex;justify-content:space-around;margin-top:20px;padding-top:14px;border-top:1px solid #dbdfda;
+ .now{display:flex;justify-content:space-around;margin:0 0 22px;padding:12px 0;border-top:1px solid #dbdfda;border-bottom:1px solid #dbdfda;
       color:#646f6d;font-size:.75em;text-align:center}
  .now b{display:block;color:#253438;font-size:1.25em;font-weight:600}
  ::selection{background:#d8c6b8;color:#253438}
@@ -73,6 +73,10 @@ permalink: /time/
 <a class="eyebrow" href="/"><span class="eyebrow-line"></span>adarsharon.com</a>
 <h1>LA &harr; Israel<span class="period">.</span></h1>
 <div class="sub">Time converter</div>
+<div class="now">
+ <div>Now in LA<b id="now_la"></b></div>
+ <div>Now in Israel<b id="now_il"></b></div>
+</div>
 <form onsubmit="return false">
  <div class="field-label" id="day_label">Date in Los Angeles</div>
  <div class="date-row"><input type="date" id="day"><button type="button" class="now-btn" id="now_btn">Now</button></div>
@@ -102,10 +106,6 @@ permalink: /time/
  <div class="strip-grid" id="strip_grid"></div>
  <div class="legend"><span><i style="background:#46615c"></i>working hours 9&ndash;18</span><span><i style="background:#d3dcd7"></i>fine for a call 7&ndash;22</span><span><i style="background:#ad6a49;height:4px;vertical-align:2px"></i>fine for both</span></div>
  <p class="overlap" id="overlap"></p>
-</div>
-<div class="now">
- <div>Now in LA<b id="now_la"></b></div>
- <div>Now in Israel<b id="now_il"></b></div>
 </div>
 </div>
 <script src="/projects/time/la_israel_time.js?v=2"></script>
