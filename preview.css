@@ -11,14 +11,19 @@
 .hero-b .portrait-frame{height:auto;aspect-ratio:4/5;margin:0;width:100%;max-width:340px;box-shadow:12px 12px 0 #efede7}
 .hero-b-copy{padding-top:2px}
 .hero-b .hero-lede{max-width:640px}
-.hero-b-latest{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:32px 0 0;padding-top:20px;border-top:1px solid var(--line);max-width:640px}
-.hero-b-tag{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--orange-text)}
-.hero-b-latest a{font-family:var(--serif);font-size:21px;letter-spacing:-.01em;color:var(--ink);text-decoration:underline;text-decoration-color:#bec8c0;text-underline-offset:5px}
-.hero-b-latest a:hover{color:var(--orange)}
-.hero-b-meta{font-size:13px;color:var(--muted)}
-.hero-b-links{display:flex;flex-wrap:wrap;gap:10px 30px;margin:18px 0 0;font-size:13px;font-weight:700}
+.hero-b-facts{margin:32px 0 0;padding-top:20px;border-top:1px solid var(--line);max-width:640px;display:grid;gap:14px}
+.hero-b-facts>div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:18px;align-items:baseline}
+.hero-b-facts dt{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.hero-b-facts dd{margin:0}
+.hero-b-email{font-family:var(--serif);font-size:20px;letter-spacing:-.01em;color:var(--ink);text-decoration:underline;text-decoration-color:#bec8c0;text-underline-offset:5px}
+.hero-b-email span{color:var(--orange);font-family:var(--sans);font-size:15px;text-decoration:none;display:inline-block}
+.hero-b-email:hover{color:var(--orange)}
+.hero-b-links{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:13px;font-weight:700}
 .hero-b-links a span{color:var(--orange);font-weight:400}
 .hero-b-links a:hover{color:var(--orange)}
+
+/* Research heading sits directly above the cards (no intro paragraph) */
+.layout-b .intro-section{padding-bottom:40px}
 
 /* Research directly after the hero */
 .layout-b .intro-section{padding-top:var(--section-gap)}
@@ -54,6 +59,7 @@
 @media(max-width:480px){
   .hero-b-name{font-size:clamp(46px,14vw,64px);white-space:normal}
   .hero-b .portrait-frame{max-width:250px}
-  .hero-b-latest a{font-size:19px}
+  .hero-b-facts>div{grid-template-columns:1fr;gap:6px}
+  .hero-b-email{font-size:18px}
   .feature-article-copy h2{font-size:40px}
 }
